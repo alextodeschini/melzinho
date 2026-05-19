@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia Clínico da Artrite — Nutrição & Estilo de Vida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,700;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F5F2EC;
+  --bg2: #EDEAE2;
+  --card: #FDFCF9;
+  --green: #2D6A4F;
+  --green-lt: #D8EEE4;
+  --green-mid: #52B788;
+  --red: #8B3A3A;
+  --red-lt: #F4E4E4;
+  --amber: #7A5C1E;
+  --amber-lt: #F5EDD6;
+  --teal: #1B5E6A;
+  --teal-lt: #D6EEF2;
+  --ink: #1C1B18;
+  --ink2: #4A4840;
+  --ink3: #7A7870;
+  --border: #DDD9CF;
+  --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* HERO */
+.hero {
+  background: var(--green);
+  color: #fff;
+  padding: 3.5rem 2rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 30%, rgba(82,183,136,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  margin-bottom: 1.25rem;
+  color: rgba(255,255,255,0.85);
+}
+.hero h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+.hero h1 em { font-style: italic; color: var(--green-mid); }
+.hero p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.75);
+  max-width: 540px;
+  margin: 0 auto 2rem;
+  font-weight: 300;
+}
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.hero-meta span {
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hero-meta span::before { content: '✦'; color: var(--green-mid); }
+
+/* NAV TABS */
+.nav-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+.nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 20px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink2);
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-bottom: 2.5px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-tab:hover { color: var(--ink); }
+.nav-tab.active { color: var(--green); border-bottom-color: var(--green); font-weight: 500; }
+.nav-tab .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot-g { background: var(--green-mid); }
+.dot-r { background: #C0564E; }
+.dot-a { background: #D4A637; }
+.dot-t { background: var(--teal); }
+.dot-b { background: #5B7DB1; }
+
+/* MAIN */
+main { max-width: 1060px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+.panel { display: none; }
+.panel.active { display: block; animation: fadeUp 0.3s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* SECTION HEADERS */
+.sec-head {
+  margin: 2rem 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sec-head:first-child { margin-top: 0; }
+.sec-head h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.sec-line { flex: 1; height: 1px; background: var(--border); }
+
+/* TABLES */
+.tbl-wrap { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 1.5rem; }
+table { width: 100%; border-collapse: collapse; background: var(--card); font-size: 13px; }
+thead th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink2);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  background: var(--bg2);
+}
+thead th:first-child { border-radius: var(--radius) 0 0 0; }
+thead th:last-child { border-radius: 0 var(--radius) 0 0; }
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--bg); }
+tbody td { padding: 12px 16px; vertical-align: top; line-height: 1.55; color: var(--ink); }
+tbody td:first-child { font-weight: 500; color: var(--ink); white-space: nowrap; }
+.icon-cell { font-size: 18px; text-align: center; width: 40px; padding: 12px 8px 12px 16px; }
+
+/* BADGES */
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 100px;
+  font-weight: 500;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+.badge-green { background: var(--green-lt); color: var(--green); }
+.badge-red { background: var(--red-lt); color: var(--red); }
+.badge-amber { background: var(--amber-lt); color: var(--amber); }
+.badge-teal { background: var(--teal-lt); color: var(--teal); }
+.badge-ev { background: #E8E5FF; color: #4A3DB0; }
+
+/* EVIDENCE TAGS */
+.ev {
+  display: inline-block;
+  font-size: 9.5px;
+  padding: 1px 6px;
+  border-radius: 100px;
+  margin-left: 4px;
+  vertical-align: middle;
+  font-weight: 500;
+}
+.ev-s { background: var(--green-lt); color: var(--green); }
+.ev-m { background: var(--amber-lt); color: var(--amber); }
+.ev-e { background: var(--teal-lt); color: var(--teal); }
+
+/* CALLOUT BOXES */
+.callout {
+  background: var(--card);
+  border-left: 3px solid var(--green-mid);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  box-shadow: var(--shadow);
+}
+.callout.red { border-left-color: #C0564E; }
+.callout.amber { border-left-color: #D4A637; }
+.callout.teal { border-left-color: var(--teal); }
+.callout h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+.callout p, .callout li { font-size: 13px; color: var(--ink2); line-height: 1.65; }
+.callout ul { padding-left: 1.25rem; margin-top: 6px; }
+.callout li { margin-bottom: 4px; }
+
+/* WARNING */
+.warning-box {
+  display: flex;
+  gap: 10px;
+  background: var(--amber-lt);
+  border: 1px solid #E0C870;
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin-top: 1.25rem;
+  font-size: 12.5px;
+  color: var(--amber);
+  line-height: 1.55;
+}
+.warning-box span:first-child { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+/* LEGEND */
+.legend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 1rem 0 0.5rem;
+  font-size: 11.5px;
+  color: var(--ink2);
+  align-items: center;
+}
+.legend-item { display: flex; align-items: center; gap: 5px; }
+
+/* FOOTER */
+footer {
+  background: var(--green);
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 12px;
+  line-height: 1.7;
+}
+footer strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .hero { padding: 2.5rem 1.25rem 2rem; }
+  .hero h1 { font-size: 1.75rem; }
+  main { padding: 1.5rem 1rem 3rem; }
+  .nav-tab { padding: 12px 14px; font-size: 12px; }
+  tbody td { padding: 10px 12px; }
+  thead th { padding: 10px 12px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-badge">Reumatologia · Nutrição · Estilo de Vida</div>
+  <h1>Guia Clínico para <em>Artrite</em></h1>
+  <p>Referência baseada em evidências científicas para alimentação, gatilhos e cuidados complementares</p>
+  <div class="hero-meta">
+    <span>Elaborado com base em evidências nível 1</span>
+    <span>Artrite Reumatoide · Osteoartrite · Gota</span>
+    <span>Atualizado 2025–2026</span>
+  </div>
+</header>
+
+<nav class="nav-tabs" role="tablist">
+  <button class="nav-tab active" onclick="show('rec',this)" role="tab"><span class="dot dot-g"></span>Recomendados</button>
+  <button class="nav-tab" onclick="show('evit',this)" role="tab"><span class="dot dot-r"></span>Evitar / Limitar</button>
+  <button class="nav-tab" onclick="show('corp',this)" role="tab"><span class="dot dot-a"></span>Corpo e Movimento</button>
+  <button class="nav-tab" onclick="show('ment',this)" role="tab"><span class="dot dot-t"></span>Mente e Sono</button>
+  <button class="nav-tab" onclick="show('amb',this)" role="tab"><span class="dot dot-b"></span>Ambiente e Hábitos</button>
+  <button class="nav-tab" onclick="show('med',this)" role="tab"><span class="dot dot-r"></span>Cuidados Médicos</button>
+</nav>
+
+<main>
+
+<!-- ===== RECOMENDADOS ===== -->
+<section class="panel active" id="panel-rec">
+  <div class="legend">
+    <strong style="color:var(--ink2)">Evidência:</strong>
+    <span class="legend-item"><span class="ev ev-s">forte</span> Ensaios clínicos robustos</span>
+    <span class="legend-item"><span class="ev ev-m">moderada</span> Estudos observacionais / meta-análises</span>
+    <span class="legend-item"><span class="ev ev-e">emergente</span> Evidência crescente / piloto</span>
+  </div>
+
+  <div class="sec-head"><h2>Ômega-3 e Gorduras Saudáveis</h2><div class="sec-line"></div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Alimento</th><th>Exemplos</th><th>Benefício Principal</th><th>Frequência</th><th>Evidência</th></tr></thead>
+      <tbody>
+        <tr><td class="icon-cell">🐟</td><td>Peixes gordurosos</td><td>Salmão, sardinha, atum, anchova, cavala, arenque (Tucunaré, Tambaqui e Pirarucu possuem teores de ômega-3 inferiores aos peixes marinhos) </td><td>Ômega-3 (EPA/DHA) reduz IL-6, TNF-α e rigidez matinal</td><td><span class="badge badge-green">2–3×/semana</span></td><td><span class="ev ev-s">forte</span></td></tr>
+        <tr><td class="icon-cell">🫒</td><td>Azeite extravirgem</td><td>Acidez ≤ 0,5%; uso em frio ou refogado rápido</td><td>Oleocantal inibe COX-1/COX-2 como o ibuprofeno</td><td><span class="badge badge-green">Diário</span></td><td><span class="ev ev-s">forte</span></td></tr>
+        <tr><td class="icon-cell">🥑</td><td>Abacate</td><td>In natura ou pasta sem aditivos</td><td>Gordura monoinsaturada e vitamina E reduzem PCR</td><td><span class="badge badge-green">3–5×/semana</span></td><td><span class="ev ev-m">moderada</span></td></tr>
+        <tr><td class="icon-cell">🌰</td><td>Oleaginosas</td><td>Nozes, amêndoas, castanha-do-pará (2 un/dia)</td><td>Ômega-3 vegetal (ALA), selênio e vitamina E</td><td><span class="badge badge-green">Punhado/dia</span></td><td><span class="ev ev-s">forte</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-head"><h2>Frutas Antioxidantes</h2><div class="sec-line"></div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Alimento</th><th>Exemplos</th><th>Benefício Principal</th><th>Frequência</th><th>Evidência</th></tr></thead>
+      <tbody>
+        <tr><td class="icon-cell">🍒</td><td>Cerejas e frutas vermelhas</td><td>Cereja, mirtilo, amora, morango, framboesa</td><td>Antocianinas reduzem ácido úrico e IL-6</td><td><span class="badge badge-green">1 porção/dia</span></td><td><span class="ev ev-s">forte</span></td></tr>
+        <tr><td class="icon-cell">🍊</td><td>Cítricos e uva roxa</td><td>Laranja, limão, tangerina, uva, romã</td><td>Vitamina C essencial para síntese de colágeno articular</td><td><span class="badge badge-green">1 porção/dia</span></td><td><span class="ev ev-s">forte</span></td></tr>
+        <tr><td class="icon-cell">🫐</td><td>Romã</td><td>Suco 100% puro ou grãos in natura</td><td>Punicalaginas protegem cartilagem e reduzem IL-1β em AR</td><td><span class="badge badge-green">3–5×/semana</span></td><td><span class="ev ev-m">moderada</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-head"><h2>Vegetais Protetores</h2><div class="sec-line"></div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Alimento</th><th>Exemplos</th><th>Benefício Principal</th><th>Frequência</th><th>Evidência</th></tr></thead>
+      <tbody>
+        <tr><td class="icon-cell">🥦</td><td>Crucíferos</td><td>Brócolis, couve-flor, couve-de-bruxelas, repolho</td><td>Sulforafano bloqueia NF-κB e enzimas de destruição de cartilagem</td><td><span class="badge badge-green">3–5×/semana</span></td><td><span class="ev ev-s">forte</span></td></tr>
+        <tr><td class="icon-cell">🌿</td><td>Folhas verde-escuras</td><td>Espinafre, couve, rúcula, agrião, acelga</td><td>Vitamina K2, magnésio e antioxidantes — proteção óssea</td><td><span class="badge badge-green">Diário</span></td><td><span class="ev ev-s">forte</span></td></tr>
+        <tr><td class="icon-cell">🧄</td><td>Alliums</td><td>Alho, cebola, alho-poró, cebolinha</td><td>Compostos sulfurosos inibem citocinas pró-inflamatórias</td><td><span class="badge badge-green">Diário</span></td><td><span class="ev ev-m">moderada</span></td></tr>
+        <tr><td class="icon-cell">🥕</td><td>Vegetais coloridos</td><td>Cenoura, abóbora, pimentão, beterraba</td><td>Betacaroteno e quercetina — anti-inflamatório sistêmico</td><td><span class="badge badge-green">Diário</span></td><td><span class="ev ev-m">moderada</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-head"><h2>Grãos, Leguminosas e Fibras</h2><div class="sec-line"></div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Alimento</th><th>Exemplos</th><th>Benefício Principal</th><th>Frequência</th><th>Evidência</th></tr></thead>
+      <tbody>
+        <tr><td class="icon-cell">🌾</td><td>Grãos integrais</td><td>Aveia, quinoa, arroz integral, cevada, linhaça</td><td>Fibras reduzem PCR; linhaça adiciona lignanas e ALA</td><td><span class="badge badge-green">2–3 porções/dia</span></td><td><span class="ev ev-s">forte</span></td></tr>
+        <tr><td class="icon-cell">🫘</td><td>Leguminosas</td><td>Feijão, lentilha, grão-de-bico, ervilha, soja</td><td>Proteína magra, fibras solúveis e controle de peso</td><td><span class="badge badge-green">3–5×/semana</span></td><td><span class="ev ev-s">forte</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-head"><h2>Especiarias, Bebidas e Alimentos Funcionais</h2><div class="sec-line"></div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Alimento</th><th>Como usar</th><th>Benefício Principal</th><th>Frequência</th><th>Evidência</th></tr></thead>
+      <tbody>
+        <tr><td class="icon-cell">🌿</td><td>Cúrcuma + pimenta-do-reino</td><td>Piperina aumenta absorção da curcumina em 2000%</td><td>Inibe NF-κB — comparável a alguns AINEs</td><td><span class="badge badge-green">Diário</span></td><td><span class="ev ev-s">forte</span></td></tr>
+        <tr><td class="icon-cell">🫚</td><td>Gengibre</td><td>Fresco ou em pó; chás, sucos e refogados</td><td>Gingeróis inibem síntese de prostaglandinas e leucotrienos</td><td><span class="badge badge-green">Diário</span></td><td><span class="ev ev-s">forte</span></td></tr>
+        <tr><td class="icon-cell">🍵</td><td>Chá verde</td><td>2–3 xícaras/dia; EGCG protege condrócitos</td><td>Epigalocatequina-3-galato reduz erosão óssea em AR</td><td><span class="badge badge-green">2–3 xícaras/dia</span></td><td><span class="ev ev-m">moderada</span></td></tr>
+        <tr><td class="icon-cell">🍫</td><td>Cacau escuro ≥ 70%</td><td>20–30 g/dia; evitar versões com açúcar</td><td>Flavonoides reduzem TNF-α e estresse oxidativo</td><td><span class="badge badge-teal">Com moderação</span></td><td><span class="ev ev-e">emergente</span></td></tr>
+        <tr><td class="icon-cell">🥛</td><td>Fermentados e probióticos</td><td>Iogurte natural, kefir, chucrute, kimchi, miso</td><td>Modulação do eixo intestino-articulação; redução de LPS</td><td><span class="badge badge-green">Diário</span></td><td><span class="ev ev-m">moderada</span></td></tr>
+        <tr><td class="icon-cell">🦴</td><td>Caldo de ossos</td><td>Colágeno tipo II hidrolisado; preparo lento ≥ 8h</td><td>Suporte à cartilagem articular; glicina anti-inflamatória</td><td><span class="badge badge-green">3–4×/semana</span></td><td><span class="ev ev-e">emergente</span></td></tr>
+        <tr><td class="icon-cell">🌊</td><td>Algas marinhas</td><td>Nori, wakame, spirulina, chlorella</td><td>Fucoidanas e ficocianinas com ação anti-inflamatória</td><td><span class="badge badge-green">2–3×/semana</span></td><td><span class="ev ev-e">emergente</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <h3>🫒 Padrão de referência: Dieta Mediterrânea</h3>
+    <p>O maior corpo de evidências para AR e osteoartrite aponta a dieta mediterrânea como padrão de referência (evidência nível 1). Ela combina naturalmente todos os grupos acima: azeite como gordura principal, pescado 2–3×/semana, abundância de vegetais e leguminosas, grãos integrais, frutas frescas e uso generoso de ervas e especiarias anti-inflamatórias.</p>
+  </div>
+</section>
+
+<!-- ===== EVITAR ===== -->
+<section class="panel" id="panel-evit">
+
+  <div class="sec-head"><h2>Eliminar Completamente</h2><div class="sec-line"></div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Alimento / Substância</th><th>Exemplos</th><th>Por que é prejudicial</th><th>Recomendação</th><th>Evidência</th></tr></thead>
+      <tbody>
+        <tr><td class="icon-cell">🍬</td><td>Açúcares adicionados</td><td>Refrigerantes, sucos industrializados, doces, biscoitos, bolos</td><td>Ativam NF-κB; picos de glicose amplificam IL-6 e TNF-α</td><td><span class="badge badge-red">Eliminar</span></td><td><span class="ev ev-s">forte</span></td></tr>
+        <tr><td class="icon-cell">🧈</td><td>Gorduras trans</td><td>Margarina, biscoitos recheados, fast food, salgadinhos industriais</td><td>Elevam marcadores inflamatórios e agravam dano articular</td><td><span class="badge badge-red">Eliminar</span></td><td><span class="ev ev-s">forte</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-head"><h2>Limitar Significativamente</h2><div class="sec-line"></div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Alimento / Substância</th><th>Exemplos</th><th>Por que é prejudicial</th><th>Recomendação</th><th>Evidência</th></tr></thead>
+      <tbody>
+        <tr><td class="icon-cell">🥩</td><td>Carnes processadas</td><td>Bacon, salsicha, linguiça, embutidos, carnes gordas</td><td>Ácido araquidônico aumenta produção de eicosanoides inflamatórios</td><td><span class="badge badge-red">≤ 1×/semana</span></td><td><span class="ev ev-s">forte</span></td></tr>
+        <tr><td class="icon-cell">🛢️</td><td>Óleos vegetais refinados</td><td>Óleo de soja, milho, girassol, canola industrial</td><td>Excesso de Ômega-6 desloca razão Ω6:Ω3 para &gt;20:1 (ideal ≤ 4:1)</td><td><span class="badge badge-red">Limitar</span></td><td><span class="ev ev-s">forte</span></td></tr>
+        <tr><td class="icon-cell">🍞</td><td>Farinhas refinadas e ultraprocessados</td><td>Pão branco, macarrão comum, cereais açucarados, snacks</td><td>Alto índice glicêmico mantém inflamação crônica de baixo grau</td><td><span class="badge badge-red">Limitar</span></td><td><span class="ev ev-s">forte</span></td></tr>
+        <tr><td class="icon-cell">🧂</td><td>Sódio excessivo</td><td>Embutidos, enlatados, sopas prontas, molhos industriais</td><td>Promove retenção hídrica e piora edema articular</td><td><span class="badge badge-red">&lt; 2g sódio/dia</span></td><td><span class="ev ev-m">moderada</span></td></tr>
+        <tr><td class="icon-cell">☕</td><td>Cafeína excessiva</td><td>Mais de 3–4 cafés/dia; energéticos</td><td>Interfere na absorção de cálcio e magnésio; piora qualidade do sono</td><td><span class="badge badge-red">≤ 2–3 cafés/dia</span></td><td><span class="ev ev-m">moderada</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-head"><h2>Controvérsias — Avaliar Individualmente</h2><div class="sec-line"></div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Alimento</th><th>Exemplos</th><th>Contexto clínico</th><th>Recomendação</th><th>Evidência</th></tr></thead>
+      <tbody>
+        <tr><td class="icon-cell">🍅</td><td>Solanáceas</td><td>Tomate, berinjela, pimentão, batata</td><td>Alcaloides podem exacerbar sintomas em pacientes sensíveis com AR ou gota</td><td><span class="badge badge-amber">Testar individualmente</span></td><td><span class="ev ev-e">emergente</span></td></tr>
+        <tr><td class="icon-cell">🌾</td><td>Glúten</td><td>Trigo, centeio, cevada</td><td>Relevante em artrite reativa e enteropática; sem indicação de exclusão universal</td><td><span class="badge badge-amber">Avaliar c/ reumatologista</span></td><td><span class="ev ev-m">moderada</span></td></tr>
+        <tr><td class="icon-cell">🥛</td><td>Laticínios integrais</td><td>Queijos gordos, manteiga, creme de leite</td><td>Fermentados (kefir, iogurte) são benéficos; gordura saturada em excesso é pró-inflamatória</td><td><span class="badge badge-amber">Com moderação</span></td><td><span class="ev ev-m">moderada</span></td></tr>
+        <tr><td class="icon-cell">🫀</td><td>Vísceras e frutos do mar (gota)</td><td>Fígado, rins, camarão, mariscos, anchovas</td><td>Alta concentração de purinas eleva ácido úrico e precipita crises agudas</td><td><span class="badge badge-red">Evitar na gota</span></td><td><span class="ev ev-s">forte</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="warning-box">
+    <span>⚠️</span>
+    <span>Restrições alimentares devem ser individualizadas conforme o subtipo de artrite (AR, OA, gota, espondilite, artrite psoriásica) e medicamentos em uso. Consulte sempre seu reumatologista antes de excluir grupos alimentares.</span>
+  </div>
+</section>
+
+<!-- ===== CORPO E MOVIMENTO ===== -->
+<section class="panel" id="panel-corp">
+
+  <div class="sec-head"><h2>Atividade Física — Evidência Nível 1</h2><div class="sec-line"></div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Fator</th><th>O que acontece?</th><th>Como agir</th><th>Prioridade</th></tr></thead>
+      <tbody>
+        <tr><td class="icon-cell">🏊</td><td>Exercícios de baixo impacto</td><td>Articulação sem movimento perde lubrificação sinovial. Inatividade eleva IL-6 independentemente da dieta.</td><td>Natação, hidroginástica ou caminhada 30 min, 5×/semana. Tai chi reduz dor em joelho em 40% (NEJM)</td><td><span class="badge badge-red">Alta prioridade</span></td></tr>
+        <tr><td class="icon-cell">🏋️</td><td>Fortalecimento muscular</td><td>Cada kg de quadríceps reduz 3–4 kg de carga no joelho. Músculos fracos transferem impacto à cartilagem.</td><td>Musculação leve ou pilates 2–3×/semana. Foco em quadríceps, glúteos e core. Progressão lenta.</td><td><span class="badge badge-amber">Importante</span></td></tr>
+        <tr><td class="icon-cell">🧘</td><td>Yoga e alongamento</td><td>Rigidez articular é agravada por encurtamento muscular e fascial.</td><td>10–15 min ao acordar. Yoga adaptada — evitar compressão intensa de joelho ou pulso inflamado.</td><td><span class="badge badge-green">Recomendado</span></td></tr>
+        <tr><td class="icon-cell">⏱️</td><td>Movimentos repetitivos</td><td>Sobrecarga mecânica repetitiva ativa macrófagos sinoviais e gera microtrauma acumulativo.</td><td>Pausa a cada 25–30 min. Use articulações maiores. Ergonomia no trabalho. Fisioterapia preventiva.</td><td><span class="badge badge-amber">Importante</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-head"><h2>Controle do Peso Corporal</h2><div class="sec-line"></div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Fator</th><th>O que acontece?</th><th>Como agir</th><th>Prioridade</th></tr></thead>
+      <tbody>
+        <tr><td class="icon-cell">⚖️</td><td>Excesso de peso</td><td>Tecido adiposo produz adipocinas pró-inflamatórias. Cada kg extra = 4 kg de carga adicional por joelho ao caminhar.</td><td>Perder 5–10% do peso reduz dor em 50% na osteoartrite de joelho. IMC alvo: 18,5–24,9. Perda lenta e sustentável.</td><td><span class="badge badge-red">Alta prioridade</span></td></tr>
+        <tr><td class="icon-cell">🩺</td><td>Composição corporal</td><td>Obesidade sarcopênica — peso normal mas pouca massa muscular e muita gordura visceral — passa despercebida pelo IMC.</td><td>Solicitar bioimpedância ou DEXA. Priorizar ganho muscular junto à perda de gordura, não apenas peso na balança.</td><td><span class="badge badge-amber">Monitorar</span></td></tr>
+        <tr><td class="icon-cell">💧</td><td>Hidratação</td><td>Líquido sinovial é 80% água. Desidratação reduz sua produção e viscosidade, aumentando atrito articular.</td><td>2–2,5 L de água/dia. Não depender da sede. Chás anti-inflamatórios (gengibre, cúrcuma) contam para o total.</td><td><span class="badge badge-amber">Importante</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout teal">
+    <h3>🌊 Hidroterapia — diferencial para artrite</h3>
+    <p>A água quente (32–36°C) relaxa a musculatura periarticular, reduz a carga gravitacional em até 90% (imersão cervical) e permite maior amplitude de movimento sem dor. Indicada especialmente nas fases de exacerbação moderada, quando exercício em terra é limitante.</p>
+  </div>
+</section>
+
+<!-- ===== MENTE E SONO ===== -->
+<section class="panel" id="panel-ment">
+
+  <div class="sec-head"><h2>Estresse e Sistema Nervoso</h2><div class="sec-line"></div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Fator</th><th>O que acontece?</th><th>Como agir</th><th>Prioridade</th></tr></thead>
+      <tbody>
+        <tr><td class="icon-cell">😰</td><td>Estresse crônico</td><td>Cortisol crônico perde efeito anti-inflamatório (resistência glicocorticoide) e eleva IL-1β, IL-6 e TNF-α.</td><td>Respiração diafragmática (4-7-8). Meditação mindfulness 10 min/dia reduz PCR em 15% em estudos controlados. Delimitar horários de trabalho.</td><td><span class="badge badge-red">Alta prioridade</span></td></tr>
+        <tr><td class="icon-cell">😔</td><td>Depressão e ansiedade</td><td>Prevalência de depressão em AR é 3× maior que na população geral. Dor crônica e limitação funcional criam ciclo vicioso.</td><td>Rastreamento com PHQ-9. TCC tem evidência forte para dor crônica. Não normalizar sofrimento psicológico como "parte da doença".</td><td><span class="badge badge-red">Alta prioridade</span></td></tr>
+        <tr><td class="icon-cell">🤝</td><td>Suporte social</td><td>Isolamento social eleva cortisol e marcadores inflamatórios de forma mensurável.</td><td>Grupos de suporte para pacientes com artrite. Envolver família nas consultas. Atividades sociais regulares.</td><td><span class="badge badge-amber">Importante</span></td></tr>
+        <tr><td class="icon-cell">🎯</td><td>Autoeficácia</td><td>Pacientes com maior senso de controle relatam menos dor e melhor adesão, independente da atividade clínica.</td><td>Educação em saúde. Diário de sintomas e gatilhos. Plano de ação escrito para crises. Participar das decisões de tratamento.</td><td><span class="badge badge-amber">Importante</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-head"><h2>Sono</h2><div class="sec-line"></div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Fator</th><th>O que acontece?</th><th>Como agir</th><th>Prioridade</th></tr></thead>
+      <tbody>
+        <tr><td class="icon-cell">😴</td><td>Duração e qualidade</td><td>Privação eleva IL-1β e TNF-α e amplifica percepção de dor pela sensibilização central. Durante N3, o corpo libera GH e IL-10 (anti-inflamatória).</td><td>Meta: 7–9 horas. Horário fixo para dormir e acordar. Quarto escuro e fresco (18–20°C). Sem telas 1h antes. Evitar exercício intenso após 20h.</td><td><span class="badge badge-red">Alta prioridade</span></td></tr>
+        <tr><td class="icon-cell">😤</td><td>Apneia do sono</td><td>Prevalência 2–3× maior em AR e OA. Hipóxia intermitente ativa NF-κB e eleva PCR, potencializando a inflamação articular.</td><td>Perguntar ao parceiro sobre roncos e apneias. Solicitar polissonografia se suspeita. CPAP reduz marcadores inflamatórios de forma consistente.</td><td><span class="badge badge-red">Rastrear ativamente</span></td></tr>
+        <tr><td class="icon-cell">🌅</td><td>Rigidez matinal e ritmo circadiano</td><td>Citocinas inflamatórias têm pico entre 2h–6h. O cortisol natural deveria contrabalançar, mas na AR esse pico está atrasado.</td><td>Compressas mornas ao acordar. Discutir cronofarmacologia com o reumatologista — alguns DMARDs podem ser ajustados para uso noturno.</td><td><span class="badge badge-amber">Importante</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== AMBIENTE E HÁBITOS ===== -->
+<section class="panel" id="panel-amb">
+
+  <div class="sec-head"><h2>Hábitos de Alto Impacto</h2><div class="sec-line"></div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Fator</th><th>O que acontece?</th><th>Como agir</th><th>Prioridade</th></tr></thead>
+      <tbody>
+        <tr><td class="icon-cell">🌡️</td><td>Clima e temperatura</td><td>Baixa pressão barométrica e frio aumentam viscosidade do líquido sinovial e sensibilidade de nociceptores articulares.</td><td>Luvas, meias e aquecedores nas articulações mais afetadas. Compressas mornas pela manhã. Evitar ar-condicionado direto. Umidificador em ambientes secos.</td><td><span class="badge badge-amber">Gatilho frequente</span></td></tr>
+        <tr><td class="icon-cell">☀️</td><td>Exposição solar controlada</td><td>Síntese cutânea de vitamina D requer 15–20 min de sol. Déficit de D associado à maior atividade da AR e OA.</td><td>Sol matutino (até 10h) ou vespertino (após 16h), 15–20 min, 3–5×/semana. Sem protetor solar nesse período curto. Dosar 25-OH-D regularmente.</td><td><span class="badge badge-green">Protetor</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+
+<!-- ===== CUIDADOS MÉDICOS ===== -->
+<section class="panel" id="panel-med">
+
+  <div class="sec-head"><h2>Monitoramento e Reabilitação</h2><div class="sec-line"></div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Fator</th><th>O que acontece?</th><th>Como agir</th><th>Prioridade</th></tr></thead>
+      <tbody>
+        <tr><td class="icon-cell">☀️</td><td>Vitamina D</td><td>Déficit em 70–80% dos pacientes com AR. Modula Th17/Treg e baixos níveis associados a maior atividade da doença.</td><td>Dosar 25-OH-D a cada 6 meses. Suplementar para atingir 40–60 ng/mL. Exposição solar + suplemento oral quando necessário.</td><td><span class="badge badge-red">Monitorar sempre</span></td></tr>
+        <tr><td class="icon-cell">📊</td><td>Diário de sintomas e gatilhos</td><td>Pacientes que monitoram atividade da doença identificam gatilhos pessoais com mais precisão e têm melhor prognóstico.</td><td>Registrar: dor (0–10), rigidez matinal (minutos), articulações afetadas, estresse e sono. Levar para a consulta.</td><td><span class="badge badge-green">Recomendado</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <h3>🍽️ Como montar um prato anti-inflamatório</h3>
+    <ul>
+      <li>½ prato de vegetais variados — cores diferentes = fitoquímicos diferentes</li>
+      <li>¼ prato de proteína: peixe gordo, leguminosa ou frango sem pele</li>
+      <li>¼ prato de grão integral: quinoa, arroz integral ou batata-doce</li>
+      <li>1–2 col. de sopa de azeite extravirgem para temperar</li>
+      <li>Cúrcuma + pimenta-do-reino em pelo menos uma refeição por dia</li>
+    </ul>
+  </div>
+
+  <div class="warning-box">
+    <span>⚠️</span>
+    <span>Este guia é de caráter educativo e complementar. Não substitui consulta com reumatologista, nutricionista, fisioterapeuta ou equipe multidisciplinar. Cada subtipo de artrite pode ter indicações e restrições específicas.</span>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>Guia Clínico para Artrite — Nutrição & Estilo de Vida</strong><br>
+  Elaborado com base em evidências científicas (2025–2026) · Reumatologia · Nutrição Clínica · Saúde Mental<br>
+  <span style="font-size:11px; margin-top:6px; display:block;">Material educativo · Não substitui orientação médica individualizada</span>
+</footer>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: document.querySelector('.nav-tabs').offsetTop - 10, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

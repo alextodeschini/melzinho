@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ciclo Fértil 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --green-dark: #04342C;
+    --green-mid: #0F6E56;
+    --green-light: #1D9E75;
+    --green-pale: #9FE1CB;
+    --green-wash: #E1F5EE;
+    --orange-dark: #854F0B;
+    --orange-mid: #BA7517;
+    --orange: #EF9F27;
+    --orange-pale: #FAC775;
+    --orange-wash: #FAEEDA;
+    --red: #E24B4A;
+    --red-dark: #A32D2D;
+    --red-pale: #FCEBEB;
+    --gray-dark: #2C2C2A;
+    --gray-mid: #5F5E5A;
+    --gray-light: #B4B2A9;
+    --gray-pale: #F1EFE8;
+    --white: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--green-dark);
+    color: var(--white);
+    min-height: 100vh;
+    padding: 0 0 4rem;
+  }
+  header {
+    background: var(--green-dark);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 2rem 2rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--green-pale);
+    letter-spacing: 0.5px;
+  }
+  header p {
+    font-size: 0.8rem;
+    color: var(--green-light);
+    margin-top: 2px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 1.25rem 2rem;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .ctrl-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ctrl-group label {
+    font-size: 11px;
+    color: var(--green-pale);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+  .ctrl-group input {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 6px 12px;
+    width: 130px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .ctrl-group input:focus { border-color: var(--green-pale); }
+
+  .summary-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 1.25rem 2rem;
+  }
+  .scard {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 12px 18px;
+    min-width: 180px;
+  }
+  .scard .slabel { font-size: 11px; color: var(--green-light); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+  .scard .svalue { font-family: 'DM Serif Display', serif; font-size: 1.3rem; }
+  .scard.card-mens .svalue { color: var(--green-pale); }
+  .scard.card-fertil .svalue { color: var(--orange-pale); }
+  .scard.card-ovul .svalue { color: var(--orange); }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 0 2rem 1rem;
+  }
+  .leg-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--green-pale); }
+  .leg-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+  .leg-dot.mens { background: var(--green-light); }
+  .leg-dot.fertil { background: var(--orange-pale); }
+  .leg-dot.ovul { background: var(--orange); border: 2px solid var(--orange-dark); }
+  .leg-dot.seguro { background: rgba(255,255,255,0.12); }
+
+  .months-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 0 2rem;
+  }
+  .month-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 1.25rem;
+  }
+  .month-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--green-pale);
+    margin-bottom: 1rem;
+    letter-spacing: 0.3px;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+  }
+  .dow {
+    font-size: 10px;
+    color: var(--green-mid);
+    text-align: center;
+    padding: 2px 0 6px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 400;
+    cursor: default;
+    transition: transform 0.15s;
+  }
+  .day:hover:not(.empty) { transform: scale(1.12); }
+  .day.empty { background: transparent; }
+  .day.seguro { color: rgba(255,255,255,0.3); }
+  .day.menstruacao { background: var(--green-light); color: var(--green-dark); font-weight: 500; }
+  .day.fertil { background: rgba(239,159,39,0.25); color: var(--orange-pale); font-weight: 500; }
+  .day.ovulacao { background: var(--orange); color: var(--green-dark); font-weight: 500; box-shadow: 0 0 0 2px var(--orange-dark); }
+  .day.today { outline: 1px solid var(--green-pale); outline-offset: 1px; }
+
+  .aviso {
+    margin: 1.5rem 2rem 0;
+    background: rgba(239,159,39,0.08);
+    border: 1px solid rgba(239,159,39,0.2);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--orange-pale);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 600px) {
+    header, .controls, .summary-cards, .legend, .months-grid, .aviso { padding-left: 1rem; padding-right: 1rem; }
+    .months-grid { grid-template-columns: 1fr; }
+    .ctrl-group input { width: 110px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Controle do Ciclo Fértil</h1>
+  <p>Calendário 2026 — Maio a Dezembro</p>
+</header>
+
+<div class="controls">
+  <div class="ctrl-group">
+    <label>Início da menstruação (dia)</label>
+    <input type="number" id="inicioMens" min="1" max="31" value="28"/>
+  </div>
+  <div class="ctrl-group">
+    <label>Duração da menstruação (dias)</label>
+    <input type="number" id="durMens" min="1" max="10" value="4"/>
+  </div>
+  <div class="ctrl-group">
+    <label>Duração do ciclo (dias)</label>
+    <input type="number" id="durCiclo" min="21" max="40" value="28"/>
+  </div>
+</div>
+
+<div class="summary-cards" id="summaryCards"></div>
+
+<div class="legend">
+  <div class="leg-item"><div class="leg-dot mens"></div> Menstruação</div>
+  <div class="leg-item"><div class="leg-dot fertil"></div> Período fértil</div>
+  <div class="leg-item"><div class="leg-dot ovul"></div> Ovulação estimada</div>
+  <div class="leg-item"><div class="leg-dot seguro"></div> Período seguro</div>
+</div>
+
+<div class="months-grid" id="calendarios"></div>
+
+<div class="aviso">
+  ⚠️ Este calendário é baseado no método do ritmo (Ogino-Knaus) e serve apenas como referência. Ciclos irregulares podem alterar significativamente as datas. Para maior segurança contraceptiva, combine com outros métodos e consulte um ginecologista.
+</div>
+
+<script>
+const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const DAYS_SHORT = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+const HOJE = new Date(2026, 4, 14);
+
+function calcularCiclos(inicioMens, durMens, durCiclo) {
+  const mesBase = HOJE.getMonth();
+  const anoBase = HOJE.getFullYear();
+  let ref = new Date(anoBase, mesBase - 1, inicioMens);
+  if (ref > HOJE) ref.setMonth(ref.getMonth() - 1);
+
+  const ciclos = [];
+  let atual = new Date(ref);
+  while (atual.getFullYear() < 2027) {
+    const inicioC = new Date(atual);
+    const fimMens = new Date(atual);
+    fimMens.setDate(fimMens.getDate() + durMens - 1);
+    const ovulacao = new Date(atual);
+    ovulacao.setDate(ovulacao.getDate() + durCiclo - 14);
+    const inicioFertil = new Date(ovulacao);
+    inicioFertil.setDate(inicioFertil.getDate() - 5);
+    const fimFertil = new Date(ovulacao);
+    fimFertil.setDate(fimFertil.getDate() + 1);
+    ciclos.push({ inicioC, fimMens, ovulacao, inicioFertil, fimFertil });
+    atual = new Date(atual);
+    atual.setDate(atual.getDate() + durCiclo);
+  }
+  return ciclos;
+}
+
+function tipodia(date, ciclos) {
+  const d = date.getTime();
+  const strip = x => new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime();
+  for (const c of ciclos) {
+    if (d >= strip(c.inicioC) && d <= strip(c.fimMens)) return 'menstruacao';
+    if (d === strip(c.ovulacao)) return 'ovulacao';
+    if (d >= strip(c.inicioFertil) && d <= strip(c.fimFertil)) return 'fertil';
+  }
+  return 'seguro';
+}
+
+function renderMes(ano, mes, ciclos) {
+  const primeiroDia = new Date(ano, mes, 1).getDay();
+  const diasNoMes = new Date(ano, mes + 1, 0).getDate();
+  let html = `<div class="month-card"><h3>${MONTHS[mes]} ${ano}</h3><div class="cal-grid">`;
+  DAYS_SHORT.forEach(d => { html += `<div class="dow">${d}</div>`; });
+  for (let i = 0; i < primeiroDia; i++) html += `<div class="day empty"></div>`;
+  for (let d = 1; d <= diasNoMes; d++) {
+    const date = new Date(ano, mes, d);
+    const tipo = tipodia(date, ciclos);
+    const isHoje = date.toDateString() === HOJE.toDateString() ? ' today' : '';
+    html += `<div class="day ${tipo}${isHoje}" title="${d}/${mes+1}/${ano}">${d}</div>`;
+  }
+  html += `</div></div>`;
+  return html;
+}
+
+function fmt(date) {
+  return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+}
+
+function render() {
+  const inicioMens = parseInt(document.getElementById('inicioMens').value) || 28;
+  const durMens = parseInt(document.getElementById('durMens').value) || 4;
+  const durCiclo = parseInt(document.getElementById('durCiclo').value) || 28;
+  const ciclos = calcularCiclos(inicioMens, durMens, durCiclo);
+
+  const proximo = ciclos.find(c => c.inicioFertil >= HOJE) || ciclos[0];
+  const proxMens = ciclos.find(c => c.inicioC >= HOJE) || ciclos[0];
+
+  document.getElementById('summaryCards').innerHTML = `
+    <div class="scard card-mens">
+      <div class="slabel">Próxima menstruação</div>
+      <div class="svalue">${fmt(proxMens.inicioC)}</div>
+    </div>
+    <div class="scard card-fertil">
+      <div class="slabel">Próximo período fértil</div>
+      <div class="svalue">${fmt(proximo.inicioFertil)} – ${fmt(proximo.fimFertil)}</div>
+    </div>
+    <div class="scard card-ovul">
+      <div class="slabel">Ovulação estimada</div>
+      <div class="svalue">${fmt(proximo.ovulacao)}</div>
+    </div>
+  `;
+
+  let html = '';
+  for (let m = 4; m <= 11; m++) {
+    html += renderMes(2026, m, ciclos);
+  }
+  document.getElementById('calendarios').innerHTML = html;
+}
+
+['inicioMens','durMens','durCiclo'].forEach(id => {
+  document.getElementById(id).addEventListener('input', render);
+});
+render();
+</script>
+</body>
+</html>
