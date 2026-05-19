@@ -184,6 +184,17 @@
     color: var(--orange-pale);
     line-height: 1.6;
   }
+ header {
+    background: var(--green-dark);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 2rem 2rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    position: relative;  /* ← NOVO: essencial para o botão flutuante */
+  }
+  
 
   @media (max-width: 600px) {
     header, .controls, .summary-cards, .legend, .months-grid, .aviso { padding-left: 1rem; padding-right: 1rem; }
@@ -195,9 +206,10 @@
 <body>
 
 <header>
-  <a href="index.html" style="position: absolute; top: 20px; left: 20px; color: var(--green-pale); text-decoration: none; background: rgba(0,0,0,0.4); padding: 6px 12px; border-radius: 30px; font-size: 12px; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.1);">
-  ← Voltar ao início
-</a>
+<!-- NOVO BOTÃO DE VOLTAR -->
+  <a href="index.html" style="position: absolute; top: 20px; left: 20px; color: white; text-decoration: none; background: rgba(0,0,0,0.3); padding: 6px 12px; border-radius: 30px; font-size: 12px; backdrop-filter: blur(4px);">
+    ← Voltar ao início
+  </a>
   <h1>Controle do Ciclo Fértil</h1>
   <p>Calendário 2026 — Maio a Dezembro</p>
 </header>
